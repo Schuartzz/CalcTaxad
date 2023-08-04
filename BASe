@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>Calculadora de Tributos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 320px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 0 auto;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .display {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 24px;
+            text-align: right;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 20px;
+            font-size: 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #ddd;
+        }
+        input[type="button"]:active {
+            background-color: #ccc;
+        }
+        .button-equal {
+            grid-column: span 4;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 style="font-size: 20px;">Calculadora de Taxad</h1>
+        <input type="text" id="display" class="display" readonly value="0">
+
+        <div class="button-grid">
+            <input type="button" value="7" onclick="addToDisplay('7')">
+            <input type="button" value="8" onclick="addToDisplay('8')">
+            <input type="button" value="9" onclick="addToDisplay('9')">
+            <input type="button" value="/" onclick="addToDisplay('/')">
+
+            <input type="button" value="4" onclick="addToDisplay('4')">
+            <input type="button" value="5" onclick="addToDisplay('5')">
+            <input type="button" value="6" onclick="addToDisplay('6')">
+            <input type="button" value="*" onclick="addToDisplay('*')">
+
+            <input type="button" value="1" onclick="addToDisplay('1')">
+            <input type="button" value="2" onclick="addToDisplay('2')">
+            <input type="button" value="3" onclick="addToDisplay('3')">
+            <input type="button" value="-" onclick="addToDisplay('-')">
+
+            <input type="button" value="0" onclick="addToDisplay('0')">
+            <input type="button" value="." onclick="addToDisplay('.')">
+            <input type="button" value="C" onclick="clearDisplay()">
+
+            <input type="button" value="+" onclick="addToDisplay('+')">
+            <div class="button-equal">
+                <input type="button" value="Calcular Tributos" onclick="calculate()">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = '0';
+
+        function updateDisplay() {
+            document.getElementById('display').value = displayValue;
+        }
+
+        function addToDisplay(value) {
+            if (displayValue === '0') {
+                displayValue = value;
+            } else {
+                displayValue += value;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            displayValue = '0';
+            updateDisplay();
+        }
+
+        function calculate() {
+            try {
+                let value1 = parseFloat(displayValue) || 0;
+                let result1 = value1 + (value1 * 0.60);
+                let finalValue = result1 + (result1 * 0.17);
+                displayValue = finalValue.toFixed(2);
+                updateDisplay();
+            } catch (error) {
+                displayValue = 'Erro';
+                updateDisplay();
+            }
+        }
+    </script>
+</body>
+</html>
